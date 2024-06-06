@@ -2,12 +2,16 @@ package com.example.videosharingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.identity.SignInCredential;
+
 public class MainActivity extends AppCompatActivity {
 
+    SignInCredential credential;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void watchVideoFunction() {
-        //navigate to YouTubeVideoActivity
+        Intent intent = new Intent(MainActivity.this, YouTubePlayerActivity.class);
+        SignInCredential credential = getIntent().getParcelableExtra("CREDENTIAL");
+        if (credential != null) {
+            intent.putExtra("CREDENTIAL", credential);
+            startActivity(intent);
+        } else {
+            Log.e("MainActivity", "Credential is null");
+        }
     }
 }

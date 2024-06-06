@@ -78,22 +78,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
         private ActivityResultLauncher<IntentSenderRequest> signInRequstLauncher;
-        public void signInOnClick (View view){
-            oneTapClient.beginSignIn(signInRequest)
-                    .addOnSuccessListener(this, new OnSuccessListener<BeginSignInResult>() {
-                        @Override
-                        public void onSuccess(BeginSignInResult beginSignInResult) {
-                            IntentSenderRequest intentSenderRequest =
-                                    new IntentSenderRequest.Builder(beginSignInResult.getPendingIntent().getIntentSender()).build();
-                            signInRequstLauncher.launch(intentSenderRequest);
-                        }
-                    })
-                    .addOnFailureListener(this, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("FAILURE", "sign in failed");
-                            e.printStackTrace();
-                        }
-                    });
-        }
+    public void signInOnClick(View view) {
+        oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(this, new OnSuccessListener<BeginSignInResult>() {
+                    @Override
+                    public void onSuccess(BeginSignInResult beginSignInResult) {
+                        IntentSenderRequest intentSenderRequest =
+                                new IntentSenderRequest.Builder(beginSignInResult.getPendingIntent().getIntentSender()).build();
+                        signInRequstLauncher.launch(intentSenderRequest);
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("FAILURE", "sign in failed");
+                        e.printStackTrace();
+                        // Handle sign-in failure here (e.g., display error message)
+                    }
+                });
     }
+
+
+}
